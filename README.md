@@ -14,11 +14,11 @@ You can:
 
 ## How to Use
 
-<video src="docs/how-to-use.mp4" controls width="720"></video>
+<video src="https://raw.githubusercontent.com/giorgichkhikvadze929-dev/FinderIconStudio/main/docs/how-to-use.mp4" controls width="720"></video>
 
 If the video does not preview on your browser, open it here:
 
-[Watch the demo video](docs/how-to-use.mp4)
+[Watch the demo video](https://github.com/giorgichkhikvadze929-dev/FinderIconStudio/blob/main/docs/how-to-use.mp4)
 
 Basic flow:
 
