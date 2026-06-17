@@ -2,6 +2,8 @@
 
 Finder Icon Studio is a small macOS utility for customizing Finder item icons.
 
+It helps make your Desktop and Finder easier to scan. Instead of reading every folder name, you can recognize important items by color or image: green for active work, red for urgent files, a photo for a visual folder, or a restored default icon when you want things clean again.
+
 You can:
 
 - Change a folder/file icon color
@@ -9,6 +11,21 @@ You can:
 - Restore the original icon
 - Keep file and folder names unchanged
 - Use it locally, with no account and no cloud service
+
+## How to Use
+
+<video src="docs/how-to-use.mp4" controls width="720"></video>
+
+If the video does not preview on your browser, open it here:
+
+[Watch the demo video](docs/how-to-use.mp4)
+
+Basic flow:
+
+1. Choose a file or folder.
+2. Pick a color or choose a photo.
+3. Click `Apply`.
+4. Use `Restore Original` if you want the normal Finder icon back.
 
 ## Download
 
