@@ -1,0 +1,12 @@
+.DS_Store
+.build/
+*.xcuserdata/
+DerivedData/
+*.swp
+*.tmp
+
+# Keep the release zip in dist, but do not commit local app bundle builds.
+Finder Icon Studio.app/
+
+# SwiftPM local files
+.swiftpm/
