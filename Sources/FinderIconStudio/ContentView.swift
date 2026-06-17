@@ -67,6 +67,14 @@ private struct DetailView: View {
                                     model.applyColor(NSColor(newValue))
                                 }
 
+                            Button {
+                                model.applyPendingChanges()
+                            } label: {
+                                Label("Apply", systemImage: "checkmark")
+                            }
+                            .buttonStyle(.borderedProminent)
+                            .disabled(!model.hasPendingChanges)
+
                             Button(role: .destructive) {
                                 model.restoreOriginal()
                             } label: {
@@ -84,6 +92,12 @@ private struct DetailView: View {
                             }
 
                             Text("Use a picture as this item's icon.")
+                                .font(.footnote)
+                                .foregroundStyle(.secondary)
+                        }
+
+                        if model.pendingPhotoURL != nil {
+                            Text("Photo selected. Press Apply to update the icon.")
                                 .font(.footnote)
                                 .foregroundStyle(.secondary)
                         }

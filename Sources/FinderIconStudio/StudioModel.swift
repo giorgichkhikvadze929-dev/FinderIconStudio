@@ -8,8 +8,13 @@ final class StudioModel: ObservableObject {
     @Published var style: IconStyle?
     @Published var recentStyles: [IconStyle] = []
     @Published var lastError: String?
+    @Published var pendingColor: CodableColor?
+    @Published var pendingPhotoURL: URL?
 
     private let service = IconStyleService.shared
+    var hasPendingChanges: Bool {
+        pendingColor != nil || pendingPhotoURL != nil
+    }
 
     init() {
         refreshRecent()
@@ -28,45 +33,60 @@ final class StudioModel: ObservableObject {
     }
 
     func choosePhoto() {
-        guard let selectedURL else { return }
-
         let panel = NSOpenPanel()
         panel.title = "Choose Photo"
-        panel.prompt = "Add"
+        panel.prompt = "Choose"
         panel.allowedContentTypes = [.image]
         panel.canChooseFiles = true
         panel.canChooseDirectories = false
         panel.allowsMultipleSelection = false
 
         guard panel.runModal() == .OK, let photoURL = panel.url else { return }
-        perform {
-            try service.applyPhoto(photoURL, to: selectedURL)
-            select(selectedURL)
-        }
+        pendingPhotoURL = photoURL
+        lastError = nil
     }
 
     func select(_ url: URL) {
         selectedURL = url
         style = service.style(for: url)
         lastError = nil
+        clearPendingChanges()
         refreshRecent()
     }
 
     func applyColor(_ color: NSColor) {
-        guard let selectedURL else { return }
         let converted = color.usingColorSpace(.deviceRGB) ?? color
+        pendingColor = CodableColor(
+            red: Double(converted.redComponent),
+            green: Double(converted.greenComponent),
+            blue: Double(converted.blueComponent),
+            alpha: Double(converted.alphaComponent)
+        )
+        pendingPhotoURL = nil
+        lastError = nil
+    }
+
+    func applyPendingChanges() {
+        guard let selectedURL else { return }
         perform {
-            try service.applyColor(
-                CodableColor(
-                    red: Double(converted.redComponent),
-                    green: Double(converted.greenComponent),
-                    blue: Double(converted.blueComponent),
-                    alpha: Double(converted.alphaComponent)
-                ),
-                to: selectedURL
-            )
+            if let pendingPhotoURL {
+                try service.applyPhoto(pendingPhotoURL, to: selectedURL)
+            } else if let pendingColor {
+                try service.applyColor(
+                    pendingColor,
+                    to: selectedURL
+                )
+            } else {
+                return
+            }
+            clearPendingChanges()
             select(selectedURL)
         }
+    }
+
+    func clearPendingChanges() {
+        pendingColor = nil
+        pendingPhotoURL = nil
     }
 
     func setLabelHidden(_ hidden: Bool) {

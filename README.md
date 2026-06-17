@@ -10,15 +10,15 @@ You can:
 - Keep file and folder names unchanged
 - Use it locally, with no account and no cloud service
 
-![Finder Icon Studio app window](docs/app-window.png)
-
 ## Download
 
-Download the latest app zip from:
+Download the latest app from the GitHub Releases page:
+
+[Finder Icon Studio v0.1.0](https://github.com/giorgichkhikvadze929-dev/FinderIconStudio/releases/tag/v0.1.0)
+
+You can also find the zip in this repo:
 
 [dist/Finder Icon Studio.zip](dist/Finder%20Icon%20Studio.zip)
-
-If this is on GitHub, you can also attach the same zip to a GitHub Release.
 
 ## Install
 
@@ -37,7 +37,7 @@ Because this is an early unsigned macOS app, Gatekeeper may show this warning:
 
 This usually does **not** mean the app is broken. It means macOS blocked an unsigned app downloaded from the internet.
 
-For local testing, run this in Terminal:
+If right-click > Open still does not work, run this in Terminal:
 
 ```sh
 xattr -dr com.apple.quarantine "/Applications/Finder Icon Studio.app"
@@ -49,40 +49,7 @@ Then open the app again.
 
 This is an early beta. It is not code-signed or notarized yet.
 
-Known macOS distribution limitation:
-
-- Unsigned downloads may require right-click > Open.
-- Some Macs may show the damaged-app warning until quarantine is removed.
-
 For a smoother public release, the app should eventually be signed and notarized with an Apple Developer account.
-
-## Build From Source
-
-Requirements:
-
-- macOS
-- Xcode Command Line Tools
-- Swift
-
-Build:
-
-```sh
-swift build -c release
-```
-
-Run locally:
-
-```sh
-swift run FinderIconStudio
-```
-
-## Project Files
-
-- `Sources/FinderIconStudio` - SwiftUI macOS app
-- `Sources/FinderIconStudioCore` - icon customization logic
-- `FinderSyncExtension` - Finder Sync extension source for a future Finder right-click integration
-- `Assets` - app icon source and iconset files
-- `dist/Finder Icon Studio.zip` - downloadable app zip
 
 ## Roadmap Ideas
 
